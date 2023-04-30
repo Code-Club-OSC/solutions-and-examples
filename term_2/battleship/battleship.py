@@ -1,7 +1,7 @@
 from random import randint
 import time
 
-player_hit_board = [
+PLAYER_HIT_BOARD = [
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
@@ -12,7 +12,7 @@ player_hit_board = [
     ["0", "0", "0", "0", "0", "0", "0", "0"],
 ]
 
-player_ships_board = [
+PLAYER_SHIPS_BOARD = [
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
@@ -23,18 +23,7 @@ player_ships_board = [
     ["0", "0", "0", "0", "0", "0", "0", "0"],
 ]
 
-comp_hit_board = [
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-    ["0", "0", "0", "0", "0", "0", "0", "0"],
-]
-
-comp_ships_board = [
+COMP_SHIPS_BOARD = [
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
     ["0", "0", "0", "0", "0", "0", "0", "0"],
@@ -76,12 +65,12 @@ def player_check_hit():
     col = int(input("Enter x coordinate 1-8: ")) - 1
     row = int(input("Enter y coordinate 1-8: ")) - 1
 
-    if comp_ships_board[row][col] == "1":
+    if COMP_SHIPS_BOARD[row][col] == "1":
         print("Player hit")
-        player_hit_board[row][col] = "X"
-    elif comp_ships_board[row][col] == "0":
+        PLAYER_HIT_BOARD[row][col] = "X"
+    elif COMP_SHIPS_BOARD[row][col] == "0":
         print("Player missed")
-        player_hit_board[row][col] = "*"
+        PLAYER_HIT_BOARD[row][col] = "*"
     else:
         print("You have already targeted this coordinate!")
 
@@ -91,12 +80,12 @@ def comp_turn():
     row = randint(0, 7)
     col = randint(0, 7)
 
-    if player_ships_board[row][col] == "0":
+    if PLAYER_SHIPS_BOARD[row][col] == "0":
         print("Computer missed")
-        player_ships_board[row][col] = "*"
-    elif player_ships_board[row][col] == "1":
+        PLAYER_SHIPS_BOARD[row][col] = "*"
+    elif PLAYER_SHIPS_BOARD[row][col] == "1":
         print("Computer hit!")
-        player_ships_board[row][col] = "X"
+        PLAYER_SHIPS_BOARD[row][col] = "X"
     else:
         comp_turn()
 
@@ -104,11 +93,11 @@ def comp_turn():
 def check_win_condition():
     hit_var = 0
     other_hit_var = 0
-    for i in player_hit_board:
+    for i in PLAYER_HIT_BOARD:
         for j in i:
             if j == "X":
                 hit_var += 1
-    for i in player_ships_board:
+    for i in PLAYER_SHIPS_BOARD:
         for j in i:
             if j == "X":
                 other_hit_var += 1
@@ -120,15 +109,15 @@ def check_win_condition():
         quit("Defeat. Your battleship was sunk!")
 
 
-assign_ship(player_ships_board)
-assign_ship(comp_ships_board)
+assign_ship(PLAYER_SHIPS_BOARD)
+assign_ship(COMP_SHIPS_BOARD)
 
 while True:
     print("Your ships: ")
-    [print(i) for i in player_ships_board]
+    [print(i) for i in PLAYER_SHIPS_BOARD]
     print("----------")
     print("Your hits")
-    [print(i) for i in player_hit_board]
+    [print(i) for i in PLAYER_HIT_BOARD]
 
     player_check_hit()
 
